@@ -34,8 +34,9 @@ var deepEqual = function deepEqual(objA, objB) {
 
 var obj = {here: {is: "an"}, object: 2};
 
+//Testing
 console.log(deepEqual(obj, null));
-// > true
+// > false
 console.log(deepEqual(obj, {here: 1, object: 2}));
 // > false
 console.log(deepEqual(obj, {here: {is: "an"}, object: 2}));
