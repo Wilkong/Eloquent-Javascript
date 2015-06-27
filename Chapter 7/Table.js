@@ -16,15 +16,16 @@ function rowHeights(rows) {
   });
 }
 
-function colWidths(rows) {
+function colWidths(rows) {  
   return rows[0].map(function(_, i) {
-    return rows.reduce(function(max, row) {
+    return rows.reduce(function(max, row) {      
       return Math.max(max, row[i].minWidth());
     }, 0);
   });
 }
 
 function drawTable(rows) {
+
   var heights = rowHeights(rows);
   var widths = colWidths(rows);
 
@@ -38,6 +39,7 @@ function drawTable(rows) {
     var blocks = row.map(function(cell, colNum) {
       return cell.draw(widths[colNum], heights[rowNum]);
     });
+    console.log('Blocks !' + blocks.join( "|" ) + "?"); 
     return blocks[0].map(function(_, lineNo) {
       return drawLine(blocks, lineNo);
     }).join("\n");
@@ -76,25 +78,6 @@ TextCell.prototype.draw = function(width, height) {
   return result;
 };
 
-var rows = [];
-
-for (var i = 0; i < 5; i++) {
-   var row = [];
-   for (var j = 0; j < 5; j++) {
-     if ((j + i) % 2 == 0)
-       row.push(new TextCell("##"));
-     else
-       row.push(new TextCell("  "));
-   }
-   rows.push(row);
-}
-console.log(drawTable(rows));
-// → ##    ##    ##
-//      ##    ##
-//   ##    ##    ##
-//      ##    ##
-//   ##    ##    ##
-
 function UnderlinedCell(inner) {
   this.inner = inner;
 };
@@ -108,19 +91,6 @@ UnderlinedCell.prototype.draw = function(width, height) {
   return this.inner.draw(width, height - 1)
     .concat([repeat("-", width)]);
 };
-
-function dataTable(data) {
-  var keys = Object.keys(data[0]);
-  var headers = keys.map(function(name) {
-    return new UnderlinedCell(new TextCell(name));
-  });
-  var body = data.map(function(row) {
-    return keys.map(function(name) {
-      return new TextCell(String(row[name]));
-    });
-  });
-  return [headers].concat(body);
-}
 
 function RTextCell(text) {
   TextCell.call(this, text);
@@ -137,6 +107,29 @@ RTextCell.prototype.draw = function(width, height) {
   return result;
 };
 
+
+function StretchCell(inner, width, height) {
+  this.inner = inner;
+  this.initWidth = width;
+  this.initHeight = height;
+}
+
+StretchCell.prototype = Object.create(TextCell.prototype);
+
+StretchCell.prototype.minWidth = function(argument){
+  return this.inner.minWidth() > this.initWidth ? 
+          this.inner.minWidth() : this.initWidth;
+};
+
+StretchCell.prototype.minHeight = function(argument){
+  return this.inner.minHeight() > this.initHeight ? 
+          this.inner.minHeight() : this.initHeight;
+};
+
+StretchCell.prototype.draw = function(width, height) {
+  return this.inner.draw(width, height);
+};
+
 function dataTable(data) {
   var keys = Object.keys(data[0]);
   var headers = keys.map(function(name) {
@@ -147,7 +140,8 @@ function dataTable(data) {
       var value = row[name];
       // Тут поменяли:
       if (typeof value == "number")
-        return new RTextCell(String(value));
+        return new StretchCell(new RTextCell(String(value)), 20, 3);
+        //return new RTextCell(String(value));
       else
         return new TextCell(String(value));
     });

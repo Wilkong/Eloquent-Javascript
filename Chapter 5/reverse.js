@@ -1,4 +1,4 @@
-var reverseArray = function reverseArray(inputArray) {
+function reverseArray(inputArray) {
     console.time("NewObject");
     var resultArray = [];
     var len = inputArray.length;
@@ -8,9 +8,9 @@ var reverseArray = function reverseArray(inputArray) {
     }
     console.timeEnd("NewObject");
     return resultArray;
-};
+}
 
-var reverseArrayInPlace = function reverseArray(inputArray) {
+function reverseArrayInPlace(inputArray) {
     console.time("InPlace");
     var len = inputArray.length,
         temp;
@@ -20,7 +20,7 @@ var reverseArrayInPlace = function reverseArray(inputArray) {
         inputArray[len-i-1] = temp;
     }
     console.timeEnd("InPlace");
-};
+}
 
 //Testing
 

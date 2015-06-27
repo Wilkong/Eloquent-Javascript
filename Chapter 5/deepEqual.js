@@ -1,4 +1,4 @@
-var deepEqual = function deepEqual(objA, objB) {
+function deepEqual(objA, objB) {
     if (typeof objA === typeof objB) {
         if (typeof objA === 'object') {
             if (objA === null && objB === null) {

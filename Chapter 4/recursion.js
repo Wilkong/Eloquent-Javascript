@@ -1,5 +1,5 @@
 //Зачем они просят тут рекурсию - не понятно
-var isEven = function isEven(num) {
+function isEven(num) {
     return !Boolean(num % 2);
 }
 console.log(isEven(50));

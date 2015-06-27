@@ -1,5 +1,5 @@
 
-var range = function range(first, last) {
+function range(first, last) {
     var res = [],
         step = arguments[2],
         temp;
@@ -16,9 +16,9 @@ var range = function range(first, last) {
         res.push(i);
     }
     return res;
-};
+}
 
-var sum = function sum(input) {
+function sum(input) {
     var res = 0;
     for(var el in input) {
         if (input.hasOwnProperty(el)) {
@@ -26,6 +26,6 @@ var sum = function sum(input) {
         }
     }
     return res;
-};
+}
 
 console.log(sum(range(1,10)));

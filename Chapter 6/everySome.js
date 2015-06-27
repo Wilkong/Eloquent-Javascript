@@ -1,5 +1,5 @@
 
-var every = function every (inputArray, func){
+function every(inputArray, func){
     if ( inputArray.length === 0 ) {
         return true;
     }
@@ -8,7 +8,7 @@ var every = function every (inputArray, func){
         every(inputArray.slice(1), func) : false;
     };
 }
-var some = function some (inputArray, func){
+function some(inputArray, func){
     if ( inputArray.length === 0 ) {
         return false;
     }
