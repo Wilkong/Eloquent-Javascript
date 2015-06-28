@@ -39,7 +39,7 @@ function drawTable(rows) {
     var blocks = row.map(function(cell, colNum) {
       return cell.draw(widths[colNum], heights[rowNum]);
     });
-    console.log('Blocks !' + blocks.join( "|" ) + "?"); 
+    //console.log('Blocks !' + blocks.join( "|" ) + "?"); 
     return blocks[0].map(function(_, lineNo) {
       return drawLine(blocks, lineNo);
     }).join("\n");
@@ -113,8 +113,6 @@ function StretchCell(inner, width, height) {
   this.initWidth = width;
   this.initHeight = height;
 }
-
-StretchCell.prototype = Object.create(TextCell.prototype);
 
 StretchCell.prototype.minWidth = function(argument){
   return this.inner.minWidth() > this.initWidth ? 
