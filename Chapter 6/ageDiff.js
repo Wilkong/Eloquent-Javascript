@@ -4,6 +4,7 @@ var ancestry = JSON.parse(ANCESTRY_FILE);
 
 function average(array) {
   function plus(a, b) { return a + b; }
+
   return array.reduce(plus) / array.length;
 }
 
@@ -13,12 +14,12 @@ ancestry.forEach(function(person) {
 });
 
 var diff = ancestry
-    .filter(function(person){
-        if ( byName[person.mother] !== null && byName[person.mother] !== undefined)
-            return person;
+    .filter(function(person) {
+      if (byName[person.mother] !== null && byName[person.mother] !== undefined)
+          return person;
     })
-    .map(function(person){
-            return person.born - byName[person.mother].born;
+    .map(function(person) {
+      return person.born - byName[person.mother].born;
     });
 
 console.log(average(diff));

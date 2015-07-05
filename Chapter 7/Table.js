@@ -1,11 +1,11 @@
 var MOUNTAINS = [
-  {name: "Kilimanjaro", height: 5895, country: "Tanzania"},
-  {name: "Everest", height: 8848, country: "Nepal"},
-  {name: "Mount Fuji", height: 3776, country: "Japan"},
-  {name: "Mont Blanc", height: 4808, country: "Italy/France"},
-  {name: "Vaalserberg", height: 323, country: "Netherlands"},
-  {name: "Denali", height: 6168, country: "United States"},
-  {name: "Popocatepetl", height: 5465, country: "Mexico"}
+  {name: 'Kilimanjaro', height: 5895, country: 'Tanzania'},
+  {name: 'Everest', height: 8848, country: 'Nepal'},
+  {name: 'Mount Fuji', height: 3776, country: 'Japan'},
+  {name: 'Mont Blanc', height: 4808, country: 'Italy/France'},
+  {name: 'Vaalserberg', height: 323, country: 'Netherlands'},
+  {name: 'Denali', height: 6168, country: 'United States'},
+  {name: 'Popocatepetl', height: 5465, country: 'Mexico'}
 ];
 
 function rowHeights(rows) {
@@ -16,9 +16,9 @@ function rowHeights(rows) {
   });
 }
 
-function colWidths(rows) {  
+function colWidths(rows) {
   return rows[0].map(function(_, i) {
-    return rows.reduce(function(max, row) {      
+    return rows.reduce(function(max, row) {
       return Math.max(max, row[i].minWidth());
     }, 0);
   });
@@ -32,31 +32,32 @@ function drawTable(rows) {
   function drawLine(blocks, lineNo) {
     return blocks.map(function(block) {
       return block[lineNo];
-    }).join(" ");
+    }).join(' ');
   }
 
   function drawRow(row, rowNum) {
     var blocks = row.map(function(cell, colNum) {
       return cell.draw(widths[colNum], heights[rowNum]);
     });
-    //console.log('Blocks !' + blocks.join( "|" ) + "?"); 
+
+    //console.log('Blocks !' + blocks.join( "|" ) + "?");
     return blocks[0].map(function(_, lineNo) {
       return drawLine(blocks, lineNo);
-    }).join("\n");
+    }).join('\n');
   }
 
-  return rows.map(drawRow).join("\n");
+  return rows.map(drawRow).join('\n');
 }
 
 function repeat(string, times) {
-  var result = "";
+  var result = '';
   for (var i = 0; i < times; i++)
     result += string;
   return result;
 }
 
 function TextCell(text) {
-  this.text = text.split("\n");
+  this.text = text.split('\n');
 }
 
 TextCell.prototype.minWidth = function() {
@@ -72,24 +73,28 @@ TextCell.prototype.minHeight = function() {
 TextCell.prototype.draw = function(width, height) {
   var result = [];
   for (var i = 0; i < height; i++) {
-    var line = this.text[i] || "";
-    result.push(line + repeat(" ", width - line.length));
+    var line = this.text[i] || '';
+    result.push(line + repeat(' ', width - line.length));
   }
+
   return result;
 };
 
 function UnderlinedCell(inner) {
   this.inner = inner;
 };
+
 UnderlinedCell.prototype.minWidth = function() {
   return this.inner.minWidth();
 };
+
 UnderlinedCell.prototype.minHeight = function() {
   return this.inner.minHeight() + 1;
 };
+
 UnderlinedCell.prototype.draw = function(width, height) {
   return this.inner.draw(width, height - 1)
-    .concat([repeat("-", width)]);
+    .concat([repeat('-', width)]);
 };
 
 function RTextCell(text) {
@@ -101,12 +106,12 @@ RTextCell.prototype = Object.create(TextCell.prototype);
 RTextCell.prototype.draw = function(width, height) {
   var result = [];
   for (var i = 0; i < height; i++) {
-    var line = this.text[i] || "";
-    result.push(repeat(" ", width - line.length) + line);
+    var line = this.text[i] || '';
+    result.push(repeat(' ', width - line.length) + line);
   }
+
   return result;
 };
-
 
 function StretchCell(inner, width, height) {
   this.inner = inner;
@@ -114,13 +119,13 @@ function StretchCell(inner, width, height) {
   this.initHeight = height;
 }
 
-StretchCell.prototype.minWidth = function(argument){
-  return this.inner.minWidth() > this.initWidth ? 
+StretchCell.prototype.minWidth = function(argument) {
+  return this.inner.minWidth() > this.initWidth ?
           this.inner.minWidth() : this.initWidth;
 };
 
-StretchCell.prototype.minHeight = function(argument){
-  return this.inner.minHeight() > this.initHeight ? 
+StretchCell.prototype.minHeight = function(argument) {
+  return this.inner.minHeight() > this.initHeight ?
           this.inner.minHeight() : this.initHeight;
 };
 
@@ -133,17 +138,22 @@ function dataTable(data) {
   var headers = keys.map(function(name) {
     return new UnderlinedCell(new TextCell(name));
   });
+
   var body = data.map(function(row) {
     return keys.map(function(name) {
       var value = row[name];
+
       // Тут поменяли:
-      if (typeof value == "number")
+      if (typeof value == 'number')
         return new StretchCell(new RTextCell(String(value)), 20, 3);
-        //return new RTextCell(String(value));
+
+      //return new RTextCell(String(value));
       else
         return new TextCell(String(value));
     });
+
   });
+
   return [headers].concat(body);
 }
 
