@@ -1,13 +1,3 @@
-/*function add(a, b, callback) {
-  console.log(a + b);
-  callback();
-}
-
-add(2, 4, function() {
-  console.log('Done');
-});
-
-add(4, 5, undefined);*/
 function parseExpression(program) {
   program = skipSpace(program);
   var match, expr;
@@ -163,3 +153,10 @@ specialForms['fun'] = function(args, env) {
 
 run('do(define(plusOne, fun(a, +(a, 1))),',
     '   print(plusOne(10)))');
+// → 11
+
+/*run('do(define(pow, fun(base, exp,',
+    '     if(==(exp, 0),',
+    '        1,',
+    '        *(base, pow(base, -(exp, 1)))))),',
+    '   print(pow(2, 10)))');*/

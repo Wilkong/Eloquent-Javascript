@@ -1,16 +1,4 @@
-var plan = ['############################',
-   '#####                 ######',
-   '##   ***                **##',
-   '#   *##**         **  O  *##',
-   '#    ***     O    ##**    *#',
-   '#       O         ##***    #',
-   '#                 ##**     #',
-   '#   O       #*             #',
-   '#*          #**       O    #',
-   '#***        ##**    O    **#',
-   '##****     ###***       *###',
-   '############################'];
-
+//Array of possible directions
 var directions = {
   'n':  new Vector(0, -1),
   'ne': new Vector(1, -1),
@@ -115,7 +103,7 @@ World.prototype.turn = function() {
       this.letAct(critter, vector);
     }
   }, this);
-};
+};1
 
 World.prototype.letAct = function(critter, vector) {
   var action = critter.act(new View(this, vector));
