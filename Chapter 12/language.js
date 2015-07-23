@@ -150,6 +150,9 @@ specialForms['fun'] = function(args, env) {
     return evaluate(body, localEnv);
   };
 };
+specialForms['array'] = function(args, env) {
+  return true;
+};
 
 run('do(define(plusOne, fun(a, +(a, 1))),',
     '   print(plusOne(10)))');
