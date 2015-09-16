@@ -150,12 +150,31 @@ specialForms['fun'] = function(args, env) {
     return evaluate(body, localEnv);
   };
 };
+
 specialForms['array'] = function(args, env) {
-  return true;
+  var localArray = [];
+  var temp = Array.prototype.slice.call(args);
+
+  temp.forEach(function(el) {
+    localArray.push(evaluate(el));
+  });
+
+  return localArray;
 };
 
-run('do(define(plusOne, fun(a, +(a, 1))),',
-    '   print(plusOne(10)))');
+specialForms['length'] = function(args, env) {
+  var eval = evaluate(Array.prototype.slice.call(args)[0], env);
+  return eval.length;
+};
+
+specialForms['element'] = function(args, env) {
+  var array = evaluate(Array.prototype.slice.call(args)[0], env);
+  var element = evaluate(Array.prototype.slice.call(args)[1], env);
+  return array[element];
+};
+
+/*run('do(define(plusOne, fun(a, +(a, 1))),',
+    '   print(plusOne(10)))');*/
 // → 11
 
 /*run('do(define(pow, fun(base, exp,',
@@ -163,3 +182,14 @@ run('do(define(plusOne, fun(a, +(a, 1))),',
     '        1,',
     '        *(base, pow(base, -(exp, 1)))))),',
     '   print(pow(2, 10)))');*/
+
+    run("do(define(sum, fun(array,",
+        "     do(define(i, 0),",
+        "        define(sum, 0),",
+        "        while(<(i, length(array)),",
+        "          do(define(sum, +(sum, element(array, i))),",
+        "             define(i, +(i, 1)))),",
+        "        sum))),",
+        "   print(sum(array(1, 2, 3))))");
+// run("do(define(arr, array(1, 2, 3, 4)),",
+//   "   print(length(arr)))");
