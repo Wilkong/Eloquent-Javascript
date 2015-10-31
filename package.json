@@ -1,0 +1,24 @@
+{
+  "name": "eloquent-javascript",
+  "version": "1.0.0",
+  "description": "excersices",
+  "main": "main.js",
+  "dependencies": {
+    "eslint-plugin-react": "^3.6.3",
+    "tern": "^0.16.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wilkong/Eloquent-Javascript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wilkong/Eloquent-Javascript/issues"
+  },
+  "homepage": "https://github.com/Wilkong/Eloquent-Javascript#readme"
+}

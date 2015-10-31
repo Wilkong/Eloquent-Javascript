@@ -163,8 +163,8 @@ specialForms['array'] = function(args, env) {
 };
 
 specialForms['length'] = function(args, env) {
-  var eval = evaluate(Array.prototype.slice.call(args)[0], env);
-  return eval.length;
+  var evalResult = evaluate(Array.prototype.slice.call(args)[0], env);
+  return evalResult.length;
 };
 
 specialForms['element'] = function(args, env) {

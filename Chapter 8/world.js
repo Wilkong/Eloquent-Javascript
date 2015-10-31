@@ -10,6 +10,7 @@ var directions = {
   'nw': new Vector(-1, -1)
 };
 
+
 function Vector(x, y) {
   this.x = x;
   this.y = y;
