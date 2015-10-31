@@ -34,7 +34,7 @@ function deepEqual(objA, objB) {
   } else {
     return false;
   }
-};
+}
 
 var obj = {here: {is: 'an'}, object: 2};
 
