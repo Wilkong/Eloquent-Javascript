@@ -28,4 +28,3 @@ def selection_sort(list2):
 list2 = list(list1)
 
 selection_sort(list2)
-print(list2)
