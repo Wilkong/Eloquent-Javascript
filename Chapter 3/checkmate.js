@@ -7,7 +7,7 @@ for (var i = 1; i <= 65; i++) {
     console.log(output);
     output = '';
     last = last === '#' ? ' ' : '#';
-  };
+  }
 
   last = last === '#' ? ' ' : '#';
 }
