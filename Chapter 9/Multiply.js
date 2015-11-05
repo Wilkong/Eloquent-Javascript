@@ -1,5 +1,5 @@
 /// <reference path="node.d.ts" />
-function MultiplicatorUnitFailure() { }
+function MultiplicatorUnitFailure() {}
 
 function primitiveMultiply(a, b) {
   if (Math.random() < 0.5) {
