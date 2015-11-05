@@ -1,4 +1,3 @@
-
 var ANCESTRY_FILE = require('./ancestry.js');
 
 var ancestry = JSON.parse(ANCESTRY_FILE);
@@ -16,12 +15,13 @@ ancestry.map(function(person) {
 });
 
 function average(ages) {
-  function add(a, b) { return a + b; }
+  function add(a, b) {
+    return a + b;
+  }
 
   return ages.reduce(add) / ages.length;
 }
 
 for (var group in groups) {
-  console.log('Средний возраст ' + group + ' века: '
-  + average(groups[group]));
+  console.log('Средний возраст ' + group + ' века: ' + average(groups[group]));
 }
